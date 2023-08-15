@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest",
+  "name": "一个 web3 项目",
+  "short_name": "一个 web3 项目",
+  "description": "一个 web3 项目的描述",
+  "keywords": "web3, 钱包",
+  "theme_color": "#000",
+  "background_color": "#000",
+  "start_url": "/",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "natural"
+}

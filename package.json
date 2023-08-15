@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "ruilin",
+  "version": "0.1.0",
+  "packageManager": "pnpm@8.6.9",
+  "private": true,
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install && bash -c 'chmod ug+x .husky/*'",
+    "beforeRun": "node bin/runtime-scripts/pre-run.js",
+    "predev": "pnpm run beforeRun",
+    "dev": "next dev",
+    "start": "next start",
+    "prebuild": "rimraf .next out && cross-env NEXT_PUBLIC_APP_ENV=production pnpm run beforeRun",
+    "build": "cross-env NEXT_PUBLIC_APP_ENV=production next build",
+    "prestart": "pnpm run beforeRun",
+    "export": "ts-node --project tsconfig-for-bin.json -r tsconfig-paths/register bin/prepare-output.ts",
+    "commit": "git-cz",
+    "lint": "next lint && tsc --noEmit",
+    "lint:commit": "commitlint -e",
+    "lint-staged": "lint-staged --quiet",
+    "format": "prettier --write .",
+    "svg": "cross-env NODE_ENV=production ts-node --project tsconfig-for-bin.json -r tsconfig-paths/register bin/generate-svg-interface.ts",
+    "abi": "abi-types-generator ./src/web3/abi/abi.json --provider=ethers_v5 --name=abi.d --output=./src/web3/abi"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pnpm run lint-staged",
+      "pre-push": "pnpm run lint",
+      "commit-msg": "pnpm run lint:commit"
+    }
+  },
+  "lint-staged": {
+    "*.{md,json}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "@ebay/nice-modal-react": "^1.2.10",
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@hapi/boom": "^10.0.1",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/lab": "5.0.0-alpha.137",
+    "@mui/material": "^5.13.2",
+    "@sinclair/typebox": "^0.28.20",
+    "alchemy-sdk": "^2.9.2",
+    "autoprefixer": "10.4.14",
+    "clsx": "^1.2.1",
+    "cookie": "^0.5.0",
+    "dotenv": "^16.0.3",
+    "ethers": "^6.7.0",
+    "fs-extra": "^11.1.1",
+    "jsonschema": "^1.4.1",
+    "jsonwebtoken": "^9.0.0",
+    "lodash-es": "^4.17.21",
+    "material-ui-colors": "^1.0.0",
+    "next": "13.4.4",
+    "pascal-case": "^3.1.2",
+    "postcss": "8.4.23",
+    "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.44.3",
+    "react-hot-toast": "^2.4.1",
+    "react-use": "^17.4.0",
+    "sass": "^1.62.1",
+    "sharp": "^0.32.1",
+    "swr": "^2.1.5",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.1.6",
+    "zustand": "^4.3.8"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@next/bundle-analyzer": "^13.4.4",
+    "@svgr/webpack": "^8.0.1",
+    "@types/cookie": "^0.5.1",
+    "@types/fs-extra": "^11.0.1",
+    "@types/lodash-es": "^4.17.7",
+    "@types/mime-types": "^2.1.1",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.15",
+    "@types/react-copy-to-clipboard": "^5.0.4",
+    "@types/react-dom": "18.2.7",
+    "@types/rss": "^0.0.30",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
+    "commitizen": "^4.3.0",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.2.1",
+    "eslint": "8.41.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-next": "13.4.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "ethereum-abi-types-generator": "^1.3.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "loader-utils": "^3.2.1",
+    "prettier": "^2.8.8"
+  }
+}
